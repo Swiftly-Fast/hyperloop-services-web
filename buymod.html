@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Moderation Package</title>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("buyModForm");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const webhookURL = "https://discord.com/api/webhooks/1343707823690747974/h7xD4uKqB2HnOv5iSrG42kdwQMuOMcgOB8K5hnO16J9Hddg7pfzxDPPggZhapbXlhwXC";
+
+                const payload = {
+                    content: "**New Moderation Package Order**",
+                    embeds: [{
+                        title: "🛒 Moderation Package Order",
+                        color: 3447003,
+                        fields: [
+                            { name: "📦 Package Selected", value: document.getElementById("package").value, inline: true },
+                            { name: "🆔 Discord Username", value: document.getElementById("discordUsername").value, inline: true },
+                            { name: "🌍 Server Type", value: document.getElementById("serverType").value, inline: false },
+                            { name: "🔧 Moderation Tools Needed", value: document.getElementById("moderationTools").value, inline: false },
+                            { name: "⚖️ Server Rules", value: document.getElementById("serverRules").value, inline: false },
+                            { name: "📢 Additional Info", value: document.getElementById("extraInfo").value || "None", inline: false }
+                        ]
+                    }]
+                };
+
+                await fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                alert("✅ Order Submitted! We will contact you via Discord DMs with our bot if we decide to moderate your server.");
+                form.reset();
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+        }
+
+        .order-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 30px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+            .submit-btn:hover {
+                background-color: #218838;
+            }
+    </style>
+</head>
+<body>
+
+    <header>
+        🛒 Buy a Moderation Package
+    </header>
+
+    <main>
+        <div class="order-box">
+            <h2>💼 Choose Your Package</h2>
+            <form id="buyModForm">
+                <label>📦 Which package do you want to buy?</label>
+                <select id="package" required>
+                    <option>1 Moderator - £1/month</option>
+                    <option>2 Moderators - FREE</option>
+                    <option>3 Moderators - £3/month</option>
+                    <option>4 Moderators - £5/month</option>
+                    <option>5 Moderators - £10/month</option>
+                    <option>7 Moderators - £15/month</option>
+                    <option>10 Moderators - £20/month</option>
+                </select>
+
+                <label>🆔 Your Discord Username</label>
+                <input type="text" id="discordUsername" required>
+
+                <label>🌍 What is your server about?</label>
+                <input type="text" id="serverType" placeholder="Gaming, Community, Business, etc." required>
+
+                <label>🔧 What moderation tools should we use?</label>
+                <textarea id="moderationTools" placeholder="E.g., bans, mutes, slow mode, etc." required></textarea>
+
+                <label>⚖️ What are your server rules?</label>
+                <textarea id="serverRules" placeholder="Describe your main rules for the server" required></textarea>
+
+                <label>📢 Additional Information (Optional)</label>
+                <textarea id="extraInfo" placeholder="Any extra info or requests"></textarea>
+
+                <button type="submit" class="submit-btn">🚀 Submit Order</button>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

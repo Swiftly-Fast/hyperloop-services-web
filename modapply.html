@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Moderator</title>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            const startButton = document.getElementById("startApplication");
+            const form = document.getElementById("modApplyForm");
+            const notice = document.querySelector(".notice-box");
+
+            startButton.addEventListener("click", () => {
+                notice.style.display = "none";
+                form.style.display = "block";
+            });
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const webhookURL = "https://discord.com/api/webhooks/1343708136938405968/igudifwdUndR9HabOWl83w_kEpNaINaezqgXjMN-hYN-DiR7RNSmSUB8junRvT_tAzO1";
+
+                const payload = {
+                    content: "**New Moderator Application**",
+                    embeds: [{
+                        title: "📋 Moderator Application",
+                        color: 3447003,
+                        fields: [
+                            { name: "📅 Age", value: document.getElementById("age").value, inline: true },
+                            { name: "⌛ Experience", value: document.getElementById("experience").value, inline: true },
+                            { name: "🔹 Trust Level (1-10)", value: document.getElementById("trust").value, inline: true },
+                            { name: "💬 Multi-Server Activity", value: document.getElementById("multiServer").value, inline: true },
+                            { name: "🆔 Discord ID", value: document.getElementById("discordId").value, inline: true },
+                            { name: "📜 Why Moderator?", value: document.getElementById("reason").value, inline: false },
+                            { name: "🛠️ Used Moderation Tools", value: document.getElementById("tools").value, inline: false }
+                        ]
+                    }]
+                };
+
+                await fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                alert("✅ Application Submitted!");
+                form.reset();
+                form.style.display = "none";
+                notice.style.display = "block";
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #222;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+        }
+        .notice-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 30px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .notice-box ul {
+            text-align: left;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .bubble-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px auto;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            background-color: #28a745;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        🌟 Apply for a Moderator Role
+    </header>
+
+    <main>
+        <div class="notice-box">
+            <h2>⚠️ Important Notice</h2>
+            <p>By applying, you agree to the following:</p>
+            <ul>
+                <li>✅ Be <b>truthful</b> in your responses</li>
+                <li>✅ Meet the <b>minimum requirements</b></li>
+                <li>✅ Payments are <b>only through PayPal</b></li>
+                <li>❌ If you <b>fail to fulfill duties</b>, you will <b>not</b> be paid</li>
+            </ul>
+            <button id="startApplication">✔ Start Application</button>
+        </div>
+
+        <form id="modApplyForm" class="hidden">
+            <div class="bubble-box">
+                <label>📅 How old are you?</label>
+                <input type="number" id="age" required>
+            </div>
+
+            <div class="bubble-box">
+                <label>⌛ How long have you been moderating?</label>
+                <input type="text" id="experience" required>
+            </div>
+
+            <div class="bubble-box">
+                <label>🔹 How trusted are you? (1-10)</label>
+                <input type="number" id="trust" min="1" max="10" required>
+            </div>
+
+            <div class="bubble-box">
+                <label>💬 Will you be active in multiple servers?</label>
+                <select id="multiServer" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="bubble-box">
+                <label>🆔 Your Discord ID</label>
+                <input type="text" id="discordId" required>
+            </div>
+
+            <div class="bubble-box">
+                <label>📜 Why do you want to be a moderator?</label>
+                <textarea id="reason" required></textarea>
+            </div>
+
+            <div class="bubble-box">
+                <label>🛠️ What moderation tools have you used before?</label>
+                <input type="text" id="tools" required>
+            </div>
+
+            <button type="submit" class="submit-btn">🚀 Submit Application</button>
+        </form>
+    </main>
+
+</body>
+</html>
